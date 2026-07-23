@@ -6,20 +6,24 @@ class RedisClient{
             .on('error', (err) => {
                 console.log(err)
             })
+        this.client.connect()
     }
     isAlive(){
-        try{
-            this.client.connect()
-            return true
-        }
-        catch(err){
+            if(this.client.isReady){
+
+                return true
+            }
             return false
-        }
         
     }
     async get(key){
-       const value = this.client.get(key)
-       return value
+        try{
+            const value = this.client.get(key)
+            return value
+        }
+        catch{
+            return null
+        }
     }
     async set(key, value, duration){
         return this.client.set(key,value, {EX: duration})
