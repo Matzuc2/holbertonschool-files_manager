@@ -28,8 +28,9 @@ exports.postNew = async (req, res) => {
     password,
   });
   const { insertedId } = result;
+  const id = insertedId;
   return res.status(201).json({
-    insertedId,
+    id,
     email,
   });
 };
